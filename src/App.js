@@ -53,6 +53,7 @@ function App() {
 
   useEffect(() =>{
     if(debouncedSearch){
+      setIsSearching(true);
       apiToGetSearchCountry(debouncedSearch);
     }
   },[debouncedSearch])
@@ -69,8 +70,10 @@ function App() {
   const apiToGetSearchCountry = (e) =>{
     Axios.get('https://restcountries.eu/rest/v2/name/'+ e)
       .then((response) =>{
+        setIsSearching(false);
         setCountries(response.data);
       }).catch(error => {
+        setIsSearching(false);
         setCountries([]);
       });
   }
