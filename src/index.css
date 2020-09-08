@@ -25,6 +25,7 @@ li{
 .dropdown{
   border: 1px solid black;
   width: 520px;
+  background: white;
 }
 .smart-dropdown{
   display: flex;
