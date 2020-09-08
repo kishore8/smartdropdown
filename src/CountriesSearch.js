@@ -8,7 +8,7 @@ const CountriesSearch = React.memo((props) => {
                 {!showList  ? 
                 <div>
                     <span>Country not found</span>
-                    <button className="add-country">Add Country</button>
+                    <button className="add-country" onClick={(e) => {props.addCountry(e)}}>Add Country</button>
                 </div> :
                 props.countryList.map(country => 
                     <li onClick={(e) => {props.selCountry(e,country.name)}} key={country.cioc} value={country.name}>

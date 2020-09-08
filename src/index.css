@@ -72,3 +72,19 @@ li{
 .add-country{
   margin: 5px;
 }
+
+body{
+  height: 100vh;
+}
+#root{
+  height: 100%;
+}
+
+.App{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('https://picsum.photos/id/237/200/300') no-repeat center center fixed;
+  height: 100%;
+  background-size: 100% 100%;
+}

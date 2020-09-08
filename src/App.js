@@ -7,6 +7,7 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {useDebounce} from './debounce';
 
+
 function App() {
   const caretDownIcon = <FontAwesomeIcon icon={faCaretDown} />
   const searchIcon = <FontAwesomeIcon icon={faSearch} />
@@ -18,7 +19,9 @@ function App() {
   const [searchedCountry, setSearchedCountry] = useState('');
   const [isSearching , setIsSearching ]= useState(false);
   const [countries,setCountries] = useState( []);
-  const debouncedSearch = useDebounce(searchedCountry, 500);
+  const [orgList, setOrgList] = useState([]);
+
+  const debouncedSearch = useDebounce(searchedCountry, 10000);
 
   useEffect(() =>{
     setIsSearching(true);
@@ -34,6 +37,7 @@ function App() {
       .then((response) =>{
         setIsSearching(false)
         setCountries(response.data);
+        setOrgList(response.data);
       }).catch(error => {
         setIsSearching(false)
         console.log(error);
@@ -78,6 +82,13 @@ function App() {
       });
   }
 
+  const addCountryToList = (e) => {
+      let unfoundCountry = {name: searchedCountry, cioc: '000'};
+      setOrgList(orgList.push(unfoundCountry));
+      setTimeout(() =>{
+        setCountries(orgList);
+      });
+  };
 
   const getSelCountry = (e,countryName) =>{
     setSelectedCountry(countryName);
@@ -104,7 +115,7 @@ function App() {
               {isSearching ?  <p>Loading...</p> : 
               <CountriesSearch changeLimit={changeLimitToMax}
               countryList={countries.slice(0,countryLimit)} 
-              total={countries.length} selCountry={getSelCountry}
+              total={countries.length} selCountry={getSelCountry} addCountry={addCountryToList}
               />}
               </div> 
             :
